@@ -58,9 +58,10 @@ namespace ScorpCase
 
         public static List<Post> merge_posts(List<List<Post>> posts)
         {
-            #region First Solution
-            Dictionary<int, Post> returnListDic = new System.Collections.Generic.Dictionary<int, Post>();  
-            // List<Post> returnList = new List<Post>();
+           #region First Solution
+            Dictionary<int, Post> returnListDic = new System.Collections.Generic.Dictionary<int, Post>();
+
+            List<Post> returnList = new List<Post>();
 
             foreach (List<Post> items in posts)
             {
@@ -81,9 +82,7 @@ namespace ScorpCase
 
             #region Second Solution
             int length = posts.Count;
-            List<Post> returnList = posts[0];
-
-            int x = 1;
+            int x = 0;
             int i = 0;
             while (i < posts[x].Count)
             {
