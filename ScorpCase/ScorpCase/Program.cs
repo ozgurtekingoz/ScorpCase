@@ -59,17 +59,22 @@ namespace ScorpCase
         public static List<Post> merge_posts(List<List<Post>> posts)
         {
             #region First Solution
-            List<Post> returnList = new List<Post>();
+            Dictionary<int, Post> returnListDic = new System.Collections.Generic.Dictionary<int, Post>();  
+            // List<Post> returnList = new List<Post>();
 
             foreach (List<Post> items in posts)
             {
                 foreach (Post postItem in items)
                 {
-                    var existItem = returnList.Find(item => item.id == postItem.id);
-                    if (existItem == null)
+                    if (!returnListDic.ContainsKey(postItem.id))
                     {
-                        returnList.Add(postItem);
+                        returnListDic.Add(postItem.id, postItem);
                     }
+                    //var existItem = returnList.Find(item => item.id == postItem.id);
+                    //if (existItem == null)
+                    //{
+                    //    returnList.Add(postItem);
+                    //}
                 }
             }
             #endregion
@@ -82,9 +87,13 @@ namespace ScorpCase
             int i = 0;
             while (i < posts[x].Count)
             {
-                var existItem = returnList.Find(item => item.id == posts[x][i].id);
-                if (existItem == null)
-                    returnList.Add(posts[x][i]);
+                if (!returnListDic.ContainsKey(posts[x][i].id))
+                {
+                    returnListDic.Add(posts[x][i].id, posts[x][i]);
+                }
+                //var existItem = returnList.Find(item => item.id == posts[x][i].id);
+                //if (existItem == null)
+                //    returnList.Add(posts[x][i]);
 
                 if (i == posts[x].Count - 1)
                 {
@@ -97,7 +106,9 @@ namespace ScorpCase
                     break;
             }
             #endregion
-            returnList.OrderBy(c => c.created_at).ThenBy(c => c.id);
+            returnListDic.OrderBy(x => x.Key);
+            returnList = returnListDic.Values.ToList();
+            //returnList.OrderBy(c => c.created_at).ThenBy(c => c.id);
             return returnList;
         }
     }
